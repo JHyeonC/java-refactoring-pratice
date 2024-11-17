@@ -29,30 +29,14 @@ public class Customer {
             double thisAmount = 0;
             Rental each = (Rental) rentalEnumeration.nextElement();
 
-            switch (each.getMovie().getPriceCode()) {
-                case Movie.REGULAR:
-                    thisAmount += 2;
-                    if(each.getDaysRented() > 2)
-                        thisAmount += (each.getDaysRented() - 2) * 1.5;
-                    break;
-                case Movie.NEW_RELEASE:
-                    thisAmount += each.getDaysRented() * 3;
-                    break;
-                case Movie.CHILDRENS:
-                    thisAmount += 1.5;
-                    if(each.getDaysRented() > 3)
-                        thisAmount += (each.getDaysRented() - 3) * 1.5;
-                    break;
-            }
-
             frequentRenterPoints ++;
             if((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) &&
                 each.getDaysRented() > 1) frequentRenterPoints ++;
 
             result  = "\t" + each.getMovie().getTitle() + "\t" +
-                String.valueOf(thisAmount) + "\n";
+                String.valueOf(each.getCharge()) + "\n";
 
-            totalAmount += thisAmount;
+            totalAmount += each.getCharge();
 
             result += "누적 대여로: " + String.valueOf(totalAmount) + "\n";
             result += "적립 포인트: " + String.valueOf(frequentRenterPoints);
